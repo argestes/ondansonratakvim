@@ -1,0 +1,24 @@
+@(eventWeek: IEventWeek, rows: List[List[Option[event.Event]]])
+
+@main("Welcome to Play") {
+    <table>
+        @for(day <- eventWeek.eventDays) {
+            <th>
+                @day.dayDate <br>
+            @day.dayName
+            </th>
+        }
+        @for(row <- rows) {
+            <tr>
+            @for(event <- row) {
+                <td>
+                @event match {
+                    case Some(e) => {@e.name}
+                    case None => {}
+                }
+                </td>
+            }
+            </tr>
+        }
+    </table>
+}
