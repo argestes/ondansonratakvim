@@ -1,6 +1,6 @@
 name := "ondansonratakvim"
 
-version := "1.0"
+version := "0.9"
 
 lazy val `ondansonratakvim` = (project in file(".")).enablePlugins(PlayScala)
 
