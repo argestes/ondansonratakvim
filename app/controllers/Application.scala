@@ -25,7 +25,7 @@ object Application extends Controller {
     val image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB)
     val graphics = image.createGraphics();
 
-    val eventList = List(Event(DateTime.now(), DateTime.now(), "Test", "Desc"))
+    val eventList = List(Event(DateTime.now(), DateTime.now(), "Test", "Desc","Mekan"))
     val days = for (i <- Range(1, 7))
     yield if (i % 2 == 0) EventDayImpl(getDateTimeForDay(i), eventList) else EventDayImpl(getDateTimeForDay(i), eventList ++ eventList)
     val week = EventWeek(days.toList)
@@ -58,7 +58,7 @@ object Application extends Controller {
     val eventsname = client.events().list(ondanSonraTakvim.getId)
       .setTimeMin(jodaToGoogleTime(start))
       .setTimeMax(jodaToGoogleTime(end)).execute().getItems.toList.map(event => {
-      new Event(event.getStart, event.getEnd, event.getSummary, event.getDescription)
+      new Event(event.getStart, event.getEnd, event.getSummary, event.getDescription, event.getLocation)
     });
 
     val week = new ParsedWeek(eventsname)

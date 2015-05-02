@@ -17,7 +17,7 @@ trait IEventWeek {
   def getRow(y:Int) : List[Option[Event]] = {
 
 
-    val row = for (i <- 0 to eventDays.size) yield get(i,y)
+    val row = for (i <- 0 until eventDays.size) yield get(i,y)
     row.toList
   }
 
@@ -26,6 +26,6 @@ trait IEventWeek {
       day.events.length
     }).max
 
-    (for (i <- 0 to max) yield getRow(i)).toList
+    (for (i <- 0 until max) yield getRow(i)).toList
   }
 }
