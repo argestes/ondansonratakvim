@@ -44,6 +44,7 @@ table td:last-child {
 th h2 {
     font-size: 32px;
     margin-top: 0;
+    font-weight: 200;
 }
 
 td {

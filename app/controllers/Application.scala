@@ -13,6 +13,7 @@ import com.google.api.services.calendar.model.EventDateTime
 import models.event.{ParsedWeek, Event, EventDayImpl, EventWeek}
 import org.joda.time.format.{ISODateTimeFormat, DateTimeFormatter}
 import org.joda.time.{DateTime, DateTimeZone}
+import play.Play
 import play.api.mvc._
 
 import scala.collection.JavaConversions._
@@ -36,13 +37,13 @@ object Application extends Controller {
     new DateTime(2015, 5, day + 1, 0, 0, 0)
   }
 
-  def takvimTest = Action {
+  def takvim = Action {
     val cred = new GoogleCredential.Builder()
       .setTransport(GoogleNetHttpTransport.newTrustedTransport())
       .setJsonFactory(JacksonFactory.getDefaultInstance())
       .setServiceAccountId("428561488651-hp4mnu5er8u5jdmesoetnsjddeccm220@developer.gserviceaccount.com")
       .setServiceAccountScopes(util.Arrays.asList("https://www.googleapis.com/auth/calendar"))
-      .setServiceAccountPrivateKeyFromP12File(new File("conf/CaferTakvim-da610aacb15c.p12"))
+      .setServiceAccountPrivateKeyFromP12File(Play.application().getFile("conf/CaferTakvim-da610aacb15c.p12"))
       .build()
 
 
@@ -53,7 +54,7 @@ object Application extends Controller {
     val ondanSonraTakvim = client.calendars().get("9cdpp7n28gspmsut0u8orqnslo@group.calendar.google.com").execute()
 
 
-    val start = new DateTime(2015, 4, 27, 0, 0, 0, DateTimeZone.forTimeZone(TimeZone.getTimeZone("Europe/Istanbul")))
+    val start = DateTime.now().minusDays(1).withMillisOfDay(0).withZone(DateTimeZone.forTimeZone(TimeZone.getTimeZone("Europe/Istanbul")))
     val end = start.plusDays(7)
     val eventsname = client.events().list(ondanSonraTakvim.getId)
       .setTimeMin(jodaToGoogleTime(start))

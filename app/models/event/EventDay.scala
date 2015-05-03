@@ -6,7 +6,7 @@ import org.joda.time.DateTime
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
 
 trait EventDay {
-  val dtfOut = DateTimeFormat.forPattern("dd - MM - yyyy")
+  val dtfOut = DateTimeFormat.forPattern("dd MMMM yyyy").withLocale(Locale.forLanguageTag("tr"))
 
   val dayOfTheWeek: DateTime
 
