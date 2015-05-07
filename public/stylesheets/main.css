@@ -16,6 +16,8 @@ table {
 table td {
     border-left: 1px dashed #662D91;
     border-right: 1px dashed #662D91;
+    max-width: 100px;
+    min-width: 70px;
 }
 
 table th {
