@@ -12,4 +12,6 @@ libraryDependencies += "joda-time" % "joda-time" % "2.7"
 
 libraryDependencies += "com.google.apis" % "google-api-services-calendar" % "v3-rev99-1.19.0"
 
+libraryDependencies += filters
+
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )
