@@ -8,11 +8,11 @@ case class EventWeek(eventDays: List[EventDay]) extends IEventWeek {
 }
 
 class ParsedWeek(events: List[Event]) extends IEventWeek {
-  implicit def ordering[A <: DateTime]: Ordering[DateTime] = Ordering.by(dateTime => dateTime.dayOfYear().get())
-
+  implicit def ordering[A <: DateTime]: Ordering[DateTime] = Ordering.by(dateTime => dateTime.getMillis)
   val parsedDays = events.groupBy(event => event.startDate.withMillisOfDay(0))
   val filledDays = {
-    val sortedDays = parsedDays.toList.sortBy(f => f._1)
+    val tempDays = parsedDays.toList.sortBy(f => f._1)
+    val sortedDays = tempDays.map( day => day.copy(day._1, day._2.sortBy(event => event.startDate)))
     val firstDayOfWeek = sortedDays.head._1.dayOfWeek().get()
     val q = for (i <- firstDayOfWeek - 1 to firstDayOfWeek + 5)
     yield (getDay(sortedDays, i, sortedDays.filter(m => m._1.dayOfWeek().get() - 1 == i % 7)))
