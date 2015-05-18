@@ -54,7 +54,7 @@ object Application extends Controller {
     val ondanSonraTakvim = client.calendars().get("9cdpp7n28gspmsut0u8orqnslo@group.calendar.google.com").execute()
 
 
-    val start = DateTime.now().minusDays(1).withMillisOfDay(0).withZone(DateTimeZone.forTimeZone(TimeZone.getTimeZone("Europe/Istanbul")))
+    val start = DateTime.now().minusDays(1).withZone(DateTimeZone.forTimeZone(TimeZone.getTimeZone("Europe/Istanbul"))).withMillisOfDay(0)
     val end = start.plusDays(7)
     val eventsname = client.events().list(ondanSonraTakvim.getId)
       .setTimeMin(jodaToGoogleTime(start))
