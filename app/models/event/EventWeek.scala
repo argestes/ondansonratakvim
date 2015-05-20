@@ -13,8 +13,9 @@ class ParsedWeek(events: List[Event]) extends IEventWeek {
   private class WeekWrapper(val wrappedWeek: List[(DateTime, List[Event])]) {
 
     val q = wrappedWeek.map(dayEntry => EventDayImpl(dayEntry._1, dayEntry._2))
-    val p = q.toList.sortBy(day => day.dayOfTheWeek.getMillis).groupBy(day => day.dayOfTheWeek.dayOfYear().get())
-    val firstDay = p.head._2.head
+    val t = q.toList.sortBy(day => day.dayOfTheWeek.getMillis)
+    val p = t.groupBy(day => day.dayOfTheWeek.dayOfYear().get())
+    val firstDay = t.head
     val firstDayOfYear = firstDay.dayOfTheWeek.dayOfYear().get()
 
     def get(i: Int): EventDayImpl = {
